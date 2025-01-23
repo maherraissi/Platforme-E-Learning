@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Examens</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .button-delete {
+            background-color: #f44336;
+        }
+        .button-edit {
+            background-color: #ff9800;
+        }
+        .button-new {
+            background-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+<h1>Liste des Examens</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Durée</th>
+        <th>Cours</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="exam : ${exams}">
+        <td th:text="${exam.id}"></td>
+        <td th:text="${exam.type}"></td>
+        <td th:text="${exam.durationExam}"></td>
+        <td th:text="${exam.cours.name}"></td> <!-- Assurez-vous que 'name' est la bonne propriété -->
+        <td>
+            <a th:href="@{/exams/edit/{id}(id=${exam.id})}" class="button button-edit">Modifier</a>
+            <a th:href="@{/exams/delete/{id}(id=${exam.id})}" class="button button-delete">Supprimer</a>        </td>
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/exams/new}">Ajouter un Examen</a>
+</body>
+</html>

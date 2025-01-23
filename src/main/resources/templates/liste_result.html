@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Liste des Résultats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+        .button-delete {
+            background-color: #f44336;
+        }
+        .button-edit {
+            background-color: #ff9800;
+        }
+    </style>
+</head>
+<body>
+<h1>Liste des Résultats</h1>
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Score</th>
+        <th>Examen</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="result : ${results}">
+        <td th:text="${result.id}"></td>
+        <td th:text="${result.score}"></td>
+        <td th:text="${result.examen.type}"></td> <!-- Affiche le type de l'examen -->
+        <td>
+            <a th:href="@{/results/edit/{id}(id=${result.id})}" class="button button-edit">Modifier</a>
+            <a th:href="@{/results/delete/{id}(id=${result.id})}" class="button button-delete">Supprimer</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

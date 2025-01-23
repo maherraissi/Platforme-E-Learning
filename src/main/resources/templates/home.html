@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plateforme E-Learning</title>
+    <!-- Ajout de FontAwesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Ajout de Google Fonts pour une typographie moderne -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <!-- CSS intégré -->
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            font-size: 1rem; /* Taille de police de base */
+        }
+
+        /* Header */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            width: 50px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            font-size: 1.5rem; /* Taille du titre du logo */
+            font-weight: 600;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            font-size: 1rem; /* Taille des liens de navigation */
+        }
+
+        nav ul li a:hover {
+            color: #ffdd57;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            height: 60vh; /* Hauteur réduite pour le diaporama */
+            overflow: hidden;
+        }
+
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .mySlides {
+            display: none;
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+
+        .mySlides img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Assure que l'image couvre tout l'espace */
+        }
+
+        .slide-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            color: white;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .slide-text h2 {
+            font-size: 2rem; /* Taille du titre du diaporama */
+            margin-bottom: 10px;
+        }
+
+        .slide-text p {
+            font-size: 1.2rem; /* Taille du texte du diaporama */
+        }
+
+        .cta-buttons {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 20px;
+        }
+
+        .cta-button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            font-size: 1rem; /* Taille des boutons */
+        }
+
+        .cta-button:hover {
+            background-color: #45a049;
+        }
+
+        /* Sections */
+        .courses, .lessons {
+            padding: 50px 10%;
+            text-align: center;
+        }
+
+        .courses h2, .lessons h2 {
+            font-size: 2rem; /* Taille des titres des sections */
+            margin-bottom: 20px;
+        }
+
+        .course-grid, .lesson-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card, .lesson-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover, .lesson-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .course-card img, .lesson-card img {
+            width: 100%;
+            height: 200px; /* Hauteur fixe pour les images des cartes */
+            object-fit: cover; /* Assure que l'image couvre tout l'espace */
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .course-card h3, .lesson-card h3 {
+            font-size: 1.5rem; /* Taille des titres des cartes */
+            margin-bottom: 10px;
+        }
+
+        .course-card p, .lesson-card p {
+            font-size: 1rem; /* Taille du texte des cartes */
+            margin-bottom: 15px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 10%;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer-links {
+            margin: 10px 0;
+        }
+
+        .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1rem; /* Taille des liens du footer */
+        }
+
+        .footer-links a:hover {
+            color: #4CAF50;
+        }
+
+        .social-icons {
+            margin-top: 10px;
+        }
+
+        .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem; /* Taille des icônes sociales */
+            transition: color 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <h1>Plateforme E-Learning</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/}">Accueil</a></li>
+                <li><a th:href="@{/api/auth/signin}">Connexion</a></li>
+                <li><a th:href="@{/api/auth/signup}">Créer un Compte</a></li>
+                <li><a th:href="@{/cours}">Nos Cours</a></li>
+                <li><a th:href="@{/lessons}">Leçons Disponibles</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Section Hero avec diaporama -->
+<section class="hero">
+    <div class="slideshow-container">
+        <div class="mySlides fade">
+            <div class="slide-text">
+                <h2>Apprenez à votre rythme</h2>
+                <p>Accédez à des cours de qualité où que vous soyez.</p>
+            </div>
+        </div>
+        <div class="mySlides fade">
+            <div class="slide-text">
+                <h2>Des experts à votre service</h2>
+                <p>Profitez de l'enseignement de professionnels expérimentés.</p>
+            </div>
+        </div>
+        <div class="mySlides fade">
+            <div class="slide-text">
+                <h2>Rejoignez notre communauté</h2>
+                <p>Échangez avec des apprenants du monde entier.</p>
+            </div>
+        </div>
+    </div>
+    <div class="cta-buttons">
+        <a th:href="@{/api/auth/signin}" class="cta-button">Connexion</a>
+        <a th:href="@{/api/auth/signup}" class="cta-button">Créer un Compte</a>
+    </div>
+</section>
+
+<!-- Section Cours -->
+<section class="courses">
+    <h2>Nos Cours</h2>
+    <div class="course-grid">
+        <div class="course-card">
+            <h3>Programmation Web</h3>
+            <p>Maîtrisez les langages HTML, CSS, JavaScript et bien plus encore.</p>
+            <a th:href="@{/cours}" class="cta-button">En savoir plus</a>
+        </div>
+        <div class="course-card">
+            <h3>Data Science</h3>
+            <p>Apprenez à analyser et visualiser des données avec Python.</p>
+            <a th:href="@{/cours}" class="cta-button">En savoir plus</a>
+        </div>
+        <div class="course-card">
+            <h3>Marketing Digital</h3>
+            <p>Découvrez les stratégies pour booster votre présence en ligne.</p>
+            <a th:href="@{/cours}" class="cta-button">En savoir plus</a>
+        </div>
+    </div>
+</section>
+
+<!-- Section Leçons -->
+<section class="lessons">
+    <h2>Leçons Disponibles</h2>
+    <div class="lesson-grid">
+        <div class="lesson-card">
+            <h3>Introduction à Python</h3>
+            <p>Découvrez les bases de la programmation avec Python.</p>
+            <a th:href="@{/lessons}" class="cta-button">Voir la leçon</a>
+        </div>
+        <div class="lesson-card">
+            <h3>CSS Avancé</h3>
+            <p>Apprenez à créer des designs modernes avec CSS.</p>
+            <a th:href="@{/lessons}" class="cta-button">Voir la leçon</a>
+        </div>
+        <div class="lesson-card">
+            <h3>SEO pour Débutants</h3>
+            <p>Optimisez votre site web pour les moteurs de recherche.</p>
+            <a th:href="@{/lessons}" class="cta-button">Voir la leçon</a>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Plateforme E-Learning. Tous droits réservés.</p>
+        <div class="footer-links">
+            <a href="#">Politique de confidentialité</a>
+            <a href="#">Conditions d'utilisation</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</footer>
+
+<!-- Script pour le diaporama -->
+<script>
+    let slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        let slides = document.getElementsByClassName("mySlides");
+        for (let i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlides, 5000); // Change d'image toutes les 5 secondes
+    }
+</script>
+
+</body>
+</html>

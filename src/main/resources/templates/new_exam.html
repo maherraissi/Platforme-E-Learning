@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter un Nouvel Examen</title>
+    <style>
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Ajouter un Nouvel Examen</h1>
+<form th:action="@{/exams}" method="post" th:object="${exam}">
+    <label for="type">Type :</label>
+    <input type="text" id="type" name="type" th:field="*{type}" required>
+
+    <label for="durationExam">Durée (en minutes) :</label>
+    <input type="number" id="durationExam" name="durationExam" th:field="*{durationExam}" required>
+
+    <label for="cours">Cours :</label>
+    <select id="cours" name="cours.id" th:field="*{cours.id}">
+        <option th:each="cours : ${courses}" th:value="${cours.id}" th:text="${cours.name}"></option>
+    </select>
+
+    <button type="submit">Ajouter</button>
+</form>
+</body>
+</html>

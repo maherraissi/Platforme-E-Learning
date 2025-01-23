@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Paiement du Cours</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px gray;
+            width: 400px;
+            text-align: center;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Paiement du Cours</h2>
+    <p>Vous êtes sur le point de payer pour le cours :</p>
+    <h3 th:text="${cours.name}"></h3>
+    <form action="#" method="post">
+        <label>Numéro de carte :</label>
+        <input type="text" name="cardNumber" placeholder="XXXX XXXX XXXX XXXX" required />
+        <label>Nom sur la carte :</label>
+        <input type="text" name="cardHolder" placeholder="Nom du titulaire" required />
+        <label>Date d'expiration :</label>
+        <input type="text" name="expiryDate" placeholder="MM/AA" required />
+        <label>Code CVV :</label>
+        <input type="text" name="cvv" placeholder="XXX" required />
+        <button type="submit">Payer</button>
+    </form>
+</div>
+</body>
+</html>

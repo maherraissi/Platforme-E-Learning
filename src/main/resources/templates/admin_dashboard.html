@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tableau de Bord Administrateur</title>
+    <!-- CSS intégré -->
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        /* Header */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 10%;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .navbar .logo h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .navbar nav ul li {
+            margin-left: 20px;
+        }
+
+        .navbar nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .navbar nav ul li a:hover {
+            color: #ffdd57;
+        }
+
+        /* Tableaux */
+        .table-container {
+            width: 80%;
+            margin: 50px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        /* Boutons */
+        .btn {
+            padding: 10px 20px;
+            margin: 5px;
+            text-decoration: none;
+            color: white;
+            border-radius: 5px;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #4CAF50;
+        }
+
+        .btn-primary:hover {
+            background-color: #45a049;
+        }
+
+        .btn-secondary {
+            background-color: #007bff;
+        }
+
+        .btn-secondary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #333;
+            color: white;
+            padding: 20px 10%;
+            text-align: center;
+        }
+
+        footer .footer-links a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer .footer-links a:hover {
+            color: #4CAF50;
+        }
+
+        footer .social-icons a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        footer .social-icons a:hover {
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+    <div class="navbar">
+        <div class="logo">
+            <h1>Tableau de Bord Administrateur</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a th:href="@{/}">Accueil</a></li>
+                <li><a th:href="@{/admin/cours}">Cours</a></li>
+                <li><a th:href="@{/admin/lessons}">Leçons</a></li>
+                <li><a th:href="@{/admin/exams}">Examens</a></li>
+                <li><a th:href="@{/admin/questions}">Questions</a></li>
+                <li><a th:href="@{/admin/results}">Résultats</a></li>
+                <li><a th:href="@{/}">Déconnexion</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- Section Cours -->
+<div class="table-container">
+    <h2>Gestion des Cours</h2>
+    <a th:href="@{/admin/cours/new}" class="btn btn-primary">Ajouter un Cours</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="cours : ${coursList}">
+            <td th:text="${cours.id}"></td>
+            <td th:text="${cours.nom}"></td>
+            <td>
+                <a th:href="@{/admin/cours/edit/{id}(id=${cours.id})}" class="btn btn-secondary">Modifier</a>
+                <a th:href="@{/admin/cours/delete/{id}(id=${cours.id})}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Section Leçons -->
+<div class="table-container">
+    <h2>Gestion des Leçons</h2>
+    <a th:href="@{/admin/lessons/new}" class="btn btn-primary">Ajouter une Leçon</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Titre</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="lesson : ${lessons}">
+            <td th:text="${lesson.id}"></td>
+            <td th:text="${lesson.titre}"></td>
+            <td>
+                <a th:href="@{/admin/lessons/edit/{id}(id=${lesson.id})}" class="btn btn-secondary">Modifier</a>
+                <a th:href="@{/admin/lessons/delete/{id}(id=${lesson.id})}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Section Examens -->
+<div class="table-container">
+    <h2>Gestion des Examens</h2>
+    <a th:href="@{/admin/exams/new}" class="btn btn-primary">Ajouter un Examen</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="exam : ${exams}">
+            <td th:text="${exam.id}"></td>
+            <td th:text="${exam.nom}"></td>
+            <td>
+                <a th:href="@{/admin/exams/edit/{id}(id=${exam.id})}" class="btn btn-secondary">Modifier</a>
+                <a th:href="@{/admin/exams/delete/{id}(id=${exam.id})}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Section Questions -->
+<div class="table-container">
+    <h2>Gestion des Questions</h2>
+    <a th:href="@{/admin/questions/new}" class="btn btn-primary">Ajouter une Question</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Texte</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="question : ${questions}">
+            <td th:text="${question.id}"></td>
+            <td th:text="${question.texte}"></td>
+            <td>
+                <a th:href="@{/admin/questions/edit/{id}(id=${question.id})}" class="btn btn-secondary">Modifier</a>
+                <a th:href="@{/admin/questions/delete/{id}(id=${question.id})}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Section Résultats -->
+<div class="table-container">
+    <h2>Gestion des Résultats</h2>
+    <a th:href="@{/admin/results/new}" class="btn btn-primary">Ajouter un Résultat</a>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Étudiant</th>
+            <th>Note</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="result : ${results}">
+            <td th:text="${result.id}"></td>
+            <td th:text="${result.etudiant.nom}"></td>
+            <td th:text="${result.note}"></td>
+            <td>
+                <a th:href="@{/admin/results/edit/{id}(id=${result.id})}" class="btn btn-secondary">Modifier</a>
+                <a th:href="@{/admin/results/delete/{id}(id=${result.id})}" class="btn btn-danger">Supprimer</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Footer -->
+<footer>
+    <div class="footer-content">
+        <p>&copy; 2024 Plateforme E-Learning. Tous droits réservés.</p>
+        <div class="footer-links">
+            <a href="#">Politique de confidentialité</a>
+            <a href="#">Conditions d'utilisation</a>
+        </div>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

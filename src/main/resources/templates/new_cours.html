@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Ajouter un Cours</title>
+    <style>
+        form {
+            width: 50%;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin: 10px 0 5px;
+        }
+        input[type="text"], button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+<h1>Ajouter un Nouveau Cours</h1>
+<form th:action="@{/cours}" method="post" th:object="${cours}">
+    <label for="name">Nom du Cours :</label>
+    <input type="text" id="name" name="name" th:field="*{name}" required>
+    <button type="submit">Ajouter</button>
+</form>
+</body>
+</html>
